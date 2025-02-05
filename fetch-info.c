@@ -34,8 +34,11 @@ void cpu_cores(){
     char line[BUFFER_SIZE];
     while(fgets(line, BUFFER_SIZE, file)){
         if(strncmp(line, "cpu cores:",9) == 0){
-            cores++;
-
+            char *value = strchr(line, ':');
+            if (value) {
+                printf("cpu cores: %s", value + 2);  // Skip ": "
+            }
+            break;  // Stop after finding the first occurrence
         }
     }
     fclose(file);
