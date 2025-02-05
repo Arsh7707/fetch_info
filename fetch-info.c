@@ -17,7 +17,7 @@ void cpu_model(){
             char *model_name = strchr(line, ':');
             if (model_name) {
                 model_name += 2;
-                printf("%-15s model name: %s", model_name); 
+                printf("%-15s %s", "model name:", model_name); 
             }
            break;
         }
