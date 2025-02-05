@@ -66,10 +66,12 @@ void total_memory() {
         return;
     }
 
-    char line[BUFFER_SIZE];
-    while (fgets(line, sizeof(line), file)) {
-        if (strncmp(line, "MemTotal", 8) == 0) {
-            printf("%s", line);
+    char label[50];  // To store "MemTotal:"
+    unsigned long mem_kb;
+
+    while (fscanf(file, "%s %lu kB", label, &mem_kb) == 2) {
+        if (strcmp(label, "MemTotal:") == 0) {
+            printf("MemTotal: %lu kB\n", mem_kb);
             break;
         }
     }
