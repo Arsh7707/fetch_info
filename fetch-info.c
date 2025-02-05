@@ -7,7 +7,7 @@
 void cpu_model(){
     FILE *file = fopen("/proc/cpuinfo", "r");
     if(!file){
-        printf("Error: Unable to open file\n");
+        printf("Error opening file");
         return;
     }
 
@@ -16,7 +16,7 @@ void cpu_model(){
         if(strncmp(line, "model name:",10) == 0){
             char *model_name = strchr(line, ':');
             if (model_name) {
-                printf("model name: %s", model_name + 2);  // Skip ': 
+                printf("model name: %s", model_name += 2);  // Skip ': 
             }
            break;
         }
@@ -27,7 +27,7 @@ void cpu_model(){
 void cpu_cores(){
     FILE *file = fopen("/proc/cpuinfo", "r");
     if(!file){
-        printf("Error: Unable to open file\n");
+        printf("Error opening file");
         return;
     }
     int cores = 0;
@@ -36,7 +36,7 @@ void cpu_cores(){
         if(strncmp(line, "cpu cores:",9) == 0){
             char *value = strchr(line, ':');
             if (value) {
-                printf("cpu cores: %s", value + 2);  // Skip ": "
+                printf("cpu cores: %s", value += 2);  // Skip ": "
             }
             break;  // Stop after finding the first occurrence
         }
@@ -48,7 +48,7 @@ void cpu_cores(){
 void linux_version() {
     FILE *file = fopen("/proc/version", "r");
     if (!file) {
-        perror("Error opening /proc/version");
+        perror("Error opening file");
         return;
     }
 
@@ -62,7 +62,7 @@ void linux_version() {
 void total_memory() {
     FILE *file = fopen("/proc/meminfo", "r");
     if (!file) {
-        perror("Error opening /proc/meminfo");
+        perror("Error opening file");
         return;
     }
 
@@ -71,7 +71,7 @@ void total_memory() {
 
     while (fscanf(file, "%s %lu kB", label, &mem_kb) == 2) {
         if (strcmp(label, "MemTotal:") == 0) {
-            printf("MemTotal: %lu kB\n", mem_kb);
+            printf("MemTotal: %lu kB\n", mem_kb +=2);
             break;
         }
     }
@@ -80,7 +80,7 @@ void total_memory() {
 void uptime() {
     FILE *file = fopen("/proc/uptime", "r");
     if (!file) {
-        perror("Error opening /proc/uptime");
+        perror("Error opening file");
         return;
     }
 
@@ -104,9 +104,5 @@ int main(int argc, char *argv[]) {
         total_memory();
         uptime();
     } 
-    // else {
-    //     printf("Invalid usage: This program does not accept arguments (yet).\n");
-    // }
-
     return 0;
 }
