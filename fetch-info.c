@@ -12,7 +12,7 @@ void printing_cpu_model(){
 
     char string[BUFFER_SIZE];
     while(fgets(string, BUFFER_SIZE, file)){
-        if(strncmp(string, "model name:",10) == 0){
+        if(strncmp(string, "model name:",9) == 0){
             char *model_name = strchr(string, ':');
             if (model_name) {
                 printf("%-13s %s", "model name:", model_name+=2); 
