@@ -54,7 +54,7 @@ void linux_version() {
     fgets(version, sizeof(version), file);
     fclose(file);
 
-    printf("Linux version %s", version);
+    printf("%s", version);
 }
 
 void total_memory() {
