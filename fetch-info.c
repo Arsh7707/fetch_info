@@ -16,8 +16,8 @@ void cpu_model(){
         if(strncmp(line, "model name:",10) == 0){
             char *model_name = strchr(line, ':');
             if (model_name) {
-                model_name += 4;
-                printf("model name: %s", model_name); 
+                model_name += 2;
+                printf("%-15s model name: %s", model_name); 
             }
            break;
         }
@@ -37,7 +37,7 @@ void cpu_cores(){
         if(strncmp(line, "cpu cores:",9) == 0){
             char *value = strchr(line, ':');
             if (value) {
-                printf("cpu cores: %s", value+=4);  // Skip ": "
+                printf("cpu cores: %s", value);  // Skip ": "
             }
             break;  // Stop after finding the first occurrence
         }
