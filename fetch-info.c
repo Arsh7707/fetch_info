@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 500
 
 void cpu_model(){
     FILE *file = fopen("/proc/cpuinfo", "r");
