@@ -1,31 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #define BUFFER_SIZE 500
 
-void cpu_model(){
+void printing_cpu_model(){
     FILE *file = fopen("/proc/cpuinfo", "r");
     if(!file){
         printf("Error opening file");
         return;
     }
 
-    char line[BUFFER_SIZE];
-    while(fgets(line, BUFFER_SIZE, file)){
-        if(strncmp(line, "model name:",10) == 0){
-            char *model_name = strchr(line, ':');
-            if (model_name) {
-                model_name += 2;
-                printf("%-13s %s", "model name:", model_name); 
-            }
-           break;
+    char string[BUFFER_SIZE];
+    char model_name[BUFFER_SIZE];
+    while(fgets(string, BUFFER_SIZE, file)){
+        if (sscanf(string, "model name: %[^\n]", model_name) == 1) {
+            printf("%-13s %s\n", "model name:", model_name);
+            break; 
         }
     }
     fclose(file);
 }   
 
-void cpu_cores(){
+void printing_cpu_cores(){
     FILE *file = fopen("/proc/cpuinfo", "r");
     if(!file){
         printf("Error opening file");
@@ -37,16 +33,16 @@ void cpu_cores(){
         if(strncmp(line, "cpu cores:",9) == 0){
             char *value = strchr(line, ':');
             if (value) {
-                printf("%-13s %s", "cpu cores:", value+=2);  // Skip ": "
+                printf("%-13s %s", "cpu cores:", value+=2);
             }
-            break;  // Stop after finding the first occurrence
+            break;
         }
     }
     fclose(file);
 
 }
 
-void linux_version() {
+void printing_linux_version() {
     FILE *file = fopen("/proc/version", "r");
     if (!file) {
         perror("Error opening file");
@@ -60,14 +56,14 @@ void linux_version() {
     printf("%s", version);
 }
 
-void total_memory() {
+void printing_total_memory() {
     FILE *file = fopen("/proc/meminfo", "r");
     if (!file) {
         perror("Error opening file");
         return;
     }
 
-    char label[50];  // To store "MemTotal:"
+    char label[50];
     unsigned long mem_kb;
 
     while (fscanf(file, "%s %lu kB", label, &mem_kb) == 2) {
@@ -78,7 +74,7 @@ void total_memory() {
     }
     fclose(file);
 }
-void uptime() {
+void printing_uptime() {
     FILE *file = fopen("/proc/uptime", "r");
     if (!file) {
         perror("Error opening file");
@@ -97,13 +93,12 @@ void uptime() {
     printf("Uptime: %d days, %d hours, %d minutes, %d seconds\n", days, hours, minutes, seconds);
 }
 int main(int argc, char *argv[]) {
-    // If the program is run without arguments, retrieve and print system information
     if (argc == 1) {
-        cpu_model();
-        cpu_cores();
-        linux_version();
-        total_memory();
-        uptime();
+        printing_cpu_model();
+        printing_cpu_cores();
+        printing_linux_version();
+        printing_total_memory();
+        printing_uptime();
     } 
     return 0;
 }
