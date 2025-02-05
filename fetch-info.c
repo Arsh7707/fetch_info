@@ -43,7 +43,7 @@ void cpu_cores(){
 
 }
 
-void get_linux_version() {
+void linux_version() {
     FILE *file = fopen("/proc/version", "r");
     if (!file) {
         perror("Error opening /proc/version");
@@ -57,7 +57,7 @@ void get_linux_version() {
     printf("Linux version %s", version);
 }
 
-void get_total_memory() {
+void total_memory() {
     FILE *file = fopen("/proc/meminfo", "r");
     if (!file) {
         perror("Error opening /proc/meminfo");
@@ -73,7 +73,7 @@ void get_total_memory() {
     }
     fclose(file);
 }
-void get_uptime() {
+void uptime() {
     FILE *file = fopen("/proc/uptime", "r");
     if (!file) {
         perror("Error opening /proc/uptime");
@@ -94,11 +94,11 @@ void get_uptime() {
 int main(int argc, char *argv[]) {
     // If the program is run without arguments, retrieve and print system information
     if (argc == 1) {
-        get_cpu_model();
-        get_cpu_cores();
-        get_linux_version();
-        get_total_memory();
-        get_uptime();
+        cpu_model();
+        cpu_cores();
+        linux_version();
+        total_memory();
+        uptime();
     } 
     // else {
     //     printf("Invalid usage: This program does not accept arguments (yet).\n");
