@@ -12,7 +12,7 @@ void printing_cpu_model(){
 
     char string[BUFFER_SIZE];
     while(fgets(string, BUFFER_SIZE, file)){
-        if(strncmp(string, "model name:",9) == 0){
+        if(strncmp(string, "model name:",10) == 0){
             char *model_name = strchr(string, ':');
             if (model_name) {
                 printf("%-13s %s", "model name:", model_name+=2); 
@@ -32,7 +32,7 @@ void printing_cpu_cores(){
     int cores = 0;
     char line[BUFFER_SIZE];
     while(fgets(line, BUFFER_SIZE, file)){
-        if(strncmp(line, "cpu cores:",10) == 0){
+        if(strncmp(line, "cpu cores:",9) == 0){
             char *value = strchr(line, ':');
             if (value) {
                 printf("%-13s %s", "cpu cores:", value+=2);
