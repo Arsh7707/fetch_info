@@ -37,7 +37,7 @@ void cpu_cores(){
         if(strncmp(line, "cpu cores:",9) == 0){
             char *value = strchr(line, ':');
             if (value) {
-                printf("%-13s %s","cpu cores:", value);  // Skip ": "
+                printf("%-13s %s","cpu cores", value);  // Skip ": "
             }
             break;  // Stop after finding the first occurrence
         }
