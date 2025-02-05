@@ -72,7 +72,7 @@ void total_memory() {
 
     while (fscanf(file, "%s %lu kB", label, &mem_kb) == 2) {
         if (strcmp(label, "MemTotal:") == 0) {
-            printf("MemTotal: %lu kB\n", mem_kb+=4);
+            printf("%-13s %lu kB\n", "MemTotal:", mem_kb);
             break;
         }
     }
