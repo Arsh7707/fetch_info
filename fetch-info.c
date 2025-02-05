@@ -42,7 +42,6 @@ void cpu_cores(){
         }
     }
     fclose(file);
-    printf("cpu cores: %d\n", cores);
 
 }
 
