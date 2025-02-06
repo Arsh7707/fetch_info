@@ -158,8 +158,9 @@ void counting_threads(int pid){
             printf("Threads:    %d\n", threads);
             break;
         }
-        printf("Threads:    [Not found in status file]\n");
+        
     }
+    printf("Threads:    [Not found in status file]\n");
     fclose(file);        
     
 }
