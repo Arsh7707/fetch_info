@@ -151,18 +151,19 @@ void counting_threads(int pid){
     }
     int threads = 0;
     char line[BUFFER_SIZE];
+    int count = 0;
     while(fgets(line, BUFFER_SIZE, file)){
         if(strncmp(line, "Threads:",8) == 0){
+            count+=1;
             sscanf(line, "Threads: %d", &threads);
             printf("Threads:    %d\n", threads);
             break;
             
         }
-        else{
-            printf("Threads:    [Unable to read number of threads]\n");
-            break;
-        }
         
+    }
+    if(count == 0){
+        printf("Threads:    [Unable to read number of threads]\n");
     }
     fclose(file);        
     
