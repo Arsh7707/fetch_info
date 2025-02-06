@@ -150,7 +150,7 @@ void counting_threads(int pid){
     }
     char thread_count[BUFFER_SIZE];
     if(fgets(thread_count, sizeof(thread_count), file)){;
-        printf("Threads:   %d", thread_count);
+        printf("Threads:   %s", thread_count);
     } else {
         printf("Threads:   [Unable to read thread count]\n");
         exit(1);
