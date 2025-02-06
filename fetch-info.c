@@ -155,6 +155,7 @@ void counting_threads(int pid){
         if(strncmp(line, "Threads:",8) == 0){
             sscanf(line, "Threads: %d", &threads);
             printf("Threads:    %d\n", threads);
+            break;
             
         }
         else{
