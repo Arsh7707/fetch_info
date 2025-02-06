@@ -124,6 +124,22 @@ void printing_process_name(int pid){
 
     
 }
+void printing_file_name(int pid){
+    char string[BUFFER_SIZE];
+    snprintf(string, sizeof(string), "/proc/%d/cmdline", pid);
+    FILE *file = fopen(string, "r");
+    if(!file){
+        printf("Error opening file");
+        exit(1);
+    }
+    char file_name[BUFFER_SIZE];
+    if(fgets(file_name, sizeof(file_name), file)){;
+        printf("File:   %s", file_name);
+    } else {
+        printf("File:   no file name exists\n");
+        exit(1);
+    }
+}
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
@@ -141,6 +157,7 @@ int main(int argc, char *argv[]) {
         }
         printing_process_info(pid);
         printing_process_name(pid);
+        printing_file_name(pid);
     }
     return 0;
 }
