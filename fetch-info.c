@@ -176,10 +176,10 @@ void printing_context_switches(int pid){
     int nonvoluntary_ctxt_switches = 0;
     char line[BUFFER_SIZE];
     while(fgets(line, BUFFER_SIZE, file)){
-        if(strncmp(line, "voluntary_ctxt_switches:",25) == 0){
+        if(strncmp(line, "voluntary_ctxt_switches:",24) == 0){
             sscanf(line, "voluntary_ctxt_switches: %d", &voluntary_ctxt_switches);
         }
-        if(strncmp(line, "nonvoluntary_ctxt_switches:",28) == 0){
+        if(strncmp(line, "nonvoluntary_ctxt_switches:",27) == 0){
             sscanf(line, "nonvoluntary_ctxt_switches: %d", &nonvoluntary_ctxt_switches);
         }
     }
@@ -196,6 +196,7 @@ int main(int argc, char *argv[]) {
     }
     else if(argc == 2){
         int pid = atoi(argv[1]);
+        printf("%d\n", pid);
         if(pid <= 0){
             printf("Process Number %d not found\n", pid);
             exit(1);
