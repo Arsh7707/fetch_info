@@ -140,6 +140,22 @@ void printing_file_name(int pid){
         exit(1);
     }
 }
+void counting_threads(int pid){
+    char string[BUFFER_SIZE];
+    snprintf(string, sizeof(string), "/proc/%d/status", pid);
+    FILE *file = fopen(string, "r");
+    if(!file){
+        printf("Error opening file");
+        exit(1);
+    }
+    char thread_count[BUFFER_SIZE];
+    if(fgets(thread_count, sizeof(thread_count), file)){;
+        printf("Threads:   %d", thread_count);
+    } else {
+        printf("Threads:   [Unable to read thread count]\n");
+        exit(1);
+    }
+}
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
