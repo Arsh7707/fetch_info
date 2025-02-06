@@ -94,6 +94,37 @@ void printing_uptime() {
 
     printf("Uptime: %d days, %d hours, %d minutes, %d seconds\n", days, hours, minutes, seconds);
 }
+
+void printing_process_info(int pid){
+    char string[BUFFER_SIZE];
+    snprintf(string, sizeof(string), "/proc/%d/comm", pid);
+    FILE *file = fopen(string, "r");
+    if(!file){
+        printf("Process number: %d", pid, "not found\n");
+        return;
+    }
+    printf("Process number: %d\n", pid);
+}
+
+void printing_process_name(int pid){
+    char string[BUFFER_SIZE];
+    snprintf(string, sizeof(string), "/proc/%d/comm", pid);
+    FILE *file = fopen(string, "r");
+    if(!file){
+        printf("Error opening file");
+        exit(1);
+    }
+    char process_name[BUFFER_SIZE];
+    if(fgets(process_name, sizeof(process_name), file)){;
+        printf("Name:   %s", process_name);
+    } else {
+        printf("Name:   [Unable to read process name]\n");
+    }
+    fclose(file);    
+
+    
+}
+
 int main(int argc, char *argv[]) {
     if (argc == 1) {
         printing_cpu_model();
@@ -101,6 +132,15 @@ int main(int argc, char *argv[]) {
         printing_linux_version();
         printing_total_memory();
         printing_uptime();
-    } 
+    }
+    else if(argc == 2){
+        int pid = atoi(argv[1]);
+        if(pid <= 0){
+            printf("Invalid PID\n");
+            return 1;
+        }
+        printing_process_info(pid);
+        printing_process_name(pid);
+    }
     return 0;
 }
