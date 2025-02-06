@@ -95,7 +95,7 @@ void printing_uptime() {
     printf("Uptime: %d days, %d hours, %d minutes, %d seconds\n", days, hours, minutes, seconds);
 }
 
-void printing_process_info(int pid){
+void printing_process_number(int pid){
     char string[BUFFER_SIZE];
     snprintf(string, sizeof(string), "/proc/%d/comm", pid);
     FILE *file = fopen(string, "r");
@@ -195,10 +195,10 @@ int main(int argc, char *argv[]) {
     else if(argc == 2){
         int pid = atoi(argv[1]);
         if(pid <= 0){
-            printf("Invalid PID\n");
+            printf("Process Number %d not found\n", pid);
             return 1;
         }
-        printing_process_info(pid);
+        printing_process_number(pid);
         printing_process_name(pid);
         printing_file_name(pid);
         counting_threads(pid);
