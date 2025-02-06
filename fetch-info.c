@@ -162,7 +162,28 @@ void counting_threads(int pid){
     fclose(file);        
     
 }
-
+void printing_context_switches(int pid){
+    char string[BUFFER_SIZE];
+    snprintf(string, sizeof(string), "/proc/%d/status", pid);
+    FILE *file = fopen(string, "r");
+    if(!file){
+        printf("Error opening file");
+        exit(1);
+    }
+    int voluntary_ctxt_switches = 0;
+    int nonvoluntary_ctxt_switches = 0;
+    char line[BUFFER_SIZE];
+    while(fgets(line, BUFFER_SIZE, file)){
+        if(strncmp(line, "voluntary_ctxt_switches:",24) == 0){
+            sscanf(line, "voluntary_ctxt_switches: %d", &voluntary_ctxt_switches);
+        }
+        if(strncmp(line, "nonvoluntary_ctxt_switches:",27) == 0){
+            sscanf(line, "nonvoluntary_ctxt_switches: %d", &nonvoluntary_ctxt_switches);
+        }
+    }
+    printf("Total context switches:    %d\n", voluntary_ctxt_switches + nonvoluntary_ctxt_switches);
+    fclose(file);
+}
 int main(int argc, char *argv[]) {
     if (argc == 1) {
         printing_cpu_model();
