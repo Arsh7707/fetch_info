@@ -155,11 +155,14 @@ void counting_threads(int pid){
         if(strcmp(line, "Threads:") == 0){
             sscanf(line, "Threads: %d", &threads);
             printf("Threads:    %d\n", threads);
+            
+        }
+        else{
+            printf("Threads:    [Unable to read number of threads]\n");
             break;
         }
         
     }
-    printf("Threads:    [Not found in status file]\n");
     fclose(file);        
     
 }
