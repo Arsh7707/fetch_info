@@ -100,7 +100,7 @@ void printing_process_info(int pid){
     snprintf(string, sizeof(string), "/proc/%d/comm", pid);
     FILE *file = fopen(string, "r");
     if(!file){
-        printf("Process number: %d", pid, "not found\n");
+        printf("Process number: %d\n", pid, "not found\n");
         return;
     }
     printf("Process number: %d\n", pid);
