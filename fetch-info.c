@@ -151,9 +151,10 @@ void counting_threads(int pid){
         exit(1);
     }
     int threads = 0;
-    while(fgets(threads, BUFFER_SIZE, file)){
-        if(strncmp(threads, "Threads:",9) == 0){
-            char *value = strchr(threads, ':');
+    char line[BUFFER_SIZE];
+    while(fgets(line, BUFFER_SIZE, file)){
+        if(strncmp(line, "Threads:",9) == 0){
+            char *value = strchr(line, ':');
             if (value) {
                 printf("%-13s %s", "threads:", value+=2);
             }
