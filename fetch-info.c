@@ -158,6 +158,7 @@ void counting_threads(int pid){
             printf("Threads:    %d\n", threads);
             break;
         }
+        printf("Threads:    [Not found in status file]\n");
     }
     fclose(file);        
     
@@ -196,7 +197,7 @@ int main(int argc, char *argv[]) {
         int pid = atoi(argv[1]);
         if(pid <= 0){
             printf("Process Number %d not found\n", pid);
-            return 1;
+            exit(1);
         }
         printing_process_number(pid);
         printing_process_name(pid);
