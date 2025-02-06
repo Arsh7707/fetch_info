@@ -202,6 +202,7 @@ int main(int argc, char *argv[]) {
         printing_process_name(pid);
         printing_file_name(pid);
         counting_threads(pid);
+        printing_context_switches(pid);
     }
     return 0;
 }
