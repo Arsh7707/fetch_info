@@ -174,6 +174,7 @@ int main(int argc, char *argv[]) {
         printing_process_info(pid);
         printing_process_name(pid);
         printing_file_name(pid);
+        counting_threads(pid);
     }
     return 0;
 }
