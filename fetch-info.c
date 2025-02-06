@@ -134,7 +134,7 @@ void printing_file_name(int pid){
         exit(1);
     }
     char file_name[BUFFER_SIZE];
-    if(fgets(file_name, sizeof(file_name), file)){;
+    if(fgets(file_name, sizeof(file_name), file)){
         printf("Filename (if any):   %s\n", file_name);
     } else {
         printf("Filename (if any):   no file name exists\n");
@@ -153,7 +153,7 @@ void counting_threads(int pid){
     int threads = 0;
     char line[BUFFER_SIZE];
     while(fgets(line, BUFFER_SIZE, file)){
-        if(strncmp(line, "Threads:",8) == 0){
+        if(strcmp(line, "Threads:") == 0){
             sscanf(line, "Threads: %d", &threads);
             printf("Threads:    %d\n", threads);
             break;
