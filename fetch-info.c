@@ -138,7 +138,6 @@ void printing_file_name(int pid){
         printf("Filename (if any):   %s\n", file_name);
     } else {
         printf("Filename (if any):   no file name exists\n");
-        exit(1);
     }
     fclose(file);
 }
