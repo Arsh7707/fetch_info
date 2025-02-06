@@ -155,7 +155,7 @@ void counting_threads(int pid){
     while(fgets(line, BUFFER_SIZE, file)){
         if(strncmp(line, "Threads:",8) == 0){
             sscanf(line, "Threads: %d", &threads);
-            printf("Threads:   %d\n", threads);
+            printf("Threads:    %d\n", threads);
             break;
         }
     }
