@@ -134,7 +134,7 @@ void printing_file_name(int pid){
     }
     char file_name[BUFFER_SIZE];
     if(fgets(file_name, sizeof(file_name), file)){;
-        printf("File:   %s", file_name);
+        printf("File:   %s\n", file_name);
     } else {
         printf("File:   no file name exists\n");
         exit(1);
