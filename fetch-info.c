@@ -101,9 +101,10 @@ void printing_process_info(int pid){
     FILE *file = fopen(string, "r");
     if(!file){
         printf("Process number: %d not found\n", pid);
-        return;
+        exit(1);
     }
     printf("Process number:   %d\n", pid);
+    fclose(file);
 }
 
 void printing_process_name(int pid){
@@ -139,6 +140,7 @@ void printing_file_name(int pid){
         printf("Filename (if any):   no file name exists\n");
         exit(1);
     }
+    fclose(file);
 }
 void counting_threads(int pid){
     char string[BUFFER_SIZE];
@@ -148,13 +150,19 @@ void counting_threads(int pid){
         printf("Error opening file");
         exit(1);
     }
-    char thread_count[BUFFER_SIZE];
-    if(fgets(thread_count, sizeof(thread_count), file)){;
-        printf("Threads:   %s", thread_count);
-    } else {
-        printf("Threads:   [Unable to read thread count]\n");
-        exit(1);
+    int threads = 0;
+    char threads[BUFFER_SIZE];
+    while(fgets(threads, BUFFER_SIZE, file)){
+        if(strncmp(threads, "Threads:",9) == 0){
+            char *value = strchr(threads, ':');
+            if (value) {
+                printf("%-13s %s", "threads:", value+=2);
+            }
+            break;
+        }
     }
+    fclose(file);
+    
 }
 
 int main(int argc, char *argv[]) {
