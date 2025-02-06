@@ -103,7 +103,7 @@ void printing_process_info(int pid){
         printf("Process number: %d not found\n", pid);
         return;
     }
-    printf("Process number: %d\n", pid);
+   printf("%-13s %d\n", "Process number:", pid);
 }
 
 void printing_process_name(int pid){
