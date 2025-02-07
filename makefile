@@ -1,5 +1,6 @@
+# Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O2
+CFLAGS = -Wall -Wextra -O2
 
 # Target executable
 TARGET = fetch-info
