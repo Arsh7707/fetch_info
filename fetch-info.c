@@ -205,7 +205,6 @@ int main(int argc, char *argv[]) {
     }
     else if(argc == 2){
         int pid = atoi(argv[1]);
-        printf("%d\n", pid);
         if(pid <= 0){
             printf("Process Number %d not found\n", pid);
             exit(1);
