@@ -29,7 +29,6 @@ void printing_cpu_cores(){
         printf("Error opening file");
         return;
     }
-    int cores = 0;
     char line[BUFFER_SIZE];
     while(fgets(line, BUFFER_SIZE, file)){
         if(strncmp(line, "cpu cores:",9) == 0){
@@ -52,10 +51,12 @@ void printing_linux_version() {
     }
 
     char version[BUFFER_SIZE];
-    fgets(version, sizeof(version), file);
+    if (fgets(version, sizeof(version), file) != NULL) {
+        printf("%s", version);
+    } else {
+        printf("[Unable to read version]\n");
+    }
     fclose(file);
-
-    printf("%s", version);
 }
 
 void printing_total_memory() {
@@ -84,7 +85,11 @@ void printing_uptime() {
     }
 
     double uptime_seconds;
-    fscanf(file, "%lf", &uptime_seconds);
+    if (fscanf(file, "%lf", &uptime_seconds) != 1) {
+        printf("[Unable to read uptime]\n");
+        fclose(file);
+        return;
+    }
     fclose(file);
 
     int days = (int)(uptime_seconds / 86400);
