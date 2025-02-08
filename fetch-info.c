@@ -146,13 +146,15 @@ void printing_file_name(int pid){
         file_name[len] = '\0';  // Null-terminate the string
 
         // Replace all null characters with spaces for proper display
+        printf("Filename (if any):   ");
         for (size_t i = 0; i < len; i++) {
             if (file_name[i] == '\0') {
-                file_name[i] = ' ';
+                printf(" ");
+            } else {
+                printf("%c", file_name[i]);
             }
         }
-
-        printf("Filename (if any):   %s\n", file_name);
+        printf("\n");
     } else {
         printf("Filename (if any):   may be blank\n");
     }
