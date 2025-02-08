@@ -133,9 +133,9 @@ void printing_process_name(int pid){
 void printing_file_name(int pid){
     char string[BUFFER_SIZE];
     snprintf(string, sizeof(string), "/proc/%d/cmdline", pid);
-    FILE *file = fopen(string, "rb");
+    FILE *file = fopen(string, "rb"); // Open in binary mode
     if(!file){
-        printf("Error opening file");
+        perror("Error opening file");
         exit(1);
     }
     char file_name[BUFFER_SIZE];
@@ -145,10 +145,11 @@ void printing_file_name(int pid){
     if (len > 0) {
         file_name[len] = '\0';  // Null-terminate the string
 
-        // Replace all null characters with spaces for proper display
+        // Print each argument separated by spaces
         printf("Filename (if any):   ");
         for (size_t i = 0; i < len; i++) {
             if (file_name[i] == '\0') {
+                // Print a space instead of the null character
                 printf(" ");
             } else {
                 printf("%c", file_name[i]);
