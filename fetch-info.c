@@ -133,7 +133,7 @@ void printing_process_name(int pid){
 void printing_file_name(int pid){
     char string[BUFFER_SIZE];
     snprintf(string, sizeof(string), "/proc/%d/cmdline", pid);
-    FILE *file = fopen(string, "r");
+    FILE *file = fopen(string, "rb");
     if(!file){
         printf("Error opening file");
         exit(1);
