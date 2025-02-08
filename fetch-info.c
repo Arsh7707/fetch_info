@@ -142,7 +142,7 @@ void printing_file_name(int pid){
     if(fgets(file_name, sizeof(file_name), file)){
         printf("Filename (if any):   %s\n", file_name);
     } else {
-        printf("Filename (if any):   no file name exists\n");
+        printf("Filename (if any):   may be blank\n");
     }
     fclose(file);
 }
