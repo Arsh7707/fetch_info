@@ -8,17 +8,25 @@ TARGET = fetch-info
 # Source files
 SRCS = fetch-info.c
 
-# Compile with 'make fetch-info' to produce the executable
-fetch-info: $(SRCS)
+# Default rule: Automatically rebuild if source changes
+all: $(TARGET)
+
+# Compile fetch-info only if fetch-info.c has changed
+$(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 
 # Run the program without arguments
-run: fetch-info
+run: $(TARGET)
 	./$(TARGET)
 
 # Run the program with a PID argument
-run-pid: fetch-info
+run-pid: $(TARGET)
 	./$(TARGET) $(PID)
+
+# Force rebuild if needed
+rebuild:
+	$(MAKE) clean
+	$(MAKE) all
 
 # Clean up the compiled files
 clean:
