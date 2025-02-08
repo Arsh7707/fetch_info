@@ -133,32 +133,18 @@ void printing_process_name(int pid){
 void printing_file_name(int pid){
     char string[BUFFER_SIZE];
     snprintf(string, sizeof(string), "/proc/%d/cmdline", pid);
-    FILE *file = fopen(string, "rb"); // Open in binary mode
+    FILE *file = fopen(string, "r");
     if(!file){
-        perror("Error opening file");
+        printf("Error opening file");
         exit(1);
     }
     char file_name[BUFFER_SIZE];
-    size_t len = fread(file_name, 1, sizeof(file_name) - 1, file);
-    fclose(file);
-
-    if (len > 0) {
-        file_name[len] = '\0';  // Null-terminate the string
-
-        // Print each argument separated by spaces
-        printf("Filename (if any):   ");
-        for (size_t i = 0; i < len; i++) {
-            if (file_name[i] == '\0') {
-                // Print a space instead of the null character
-                printf(" ");
-            } else {
-                printf("%c", file_name[i]);
-            }
-        }
-        printf("\n");
+    if(fgets(file_name, sizeof(file_name), file)){
+        printf("Filename (if any):   %s\n", file_name);
     } else {
         printf("Filename (if any):   may be blank\n");
     }
+    fclose(file);
 }
 void counting_threads(int pid){
     char string[BUFFER_SIZE];
