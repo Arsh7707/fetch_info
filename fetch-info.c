@@ -139,12 +139,23 @@ void printing_file_name(int pid){
         exit(1);
     }
     char file_name[BUFFER_SIZE];
-    if(fgets(file_name, sizeof(file_name), file)){
+    size_t len = fread(file_name, 1, sizeof(file_name) - 1, file);
+    fclose(file);
+
+    if (len > 0) {
+        file_name[len] = '\0';  // Null-terminate the string
+
+        // Replace all null characters with spaces for proper display
+        for (size_t i = 0; i < len; i++) {
+            if (file_name[i] == '\0') {
+                file_name[i] = ' ';
+            }
+        }
+
         printf("Filename (if any):   %s\n", file_name);
     } else {
         printf("Filename (if any):   may be blank\n");
     }
-    fclose(file);
 }
 void counting_threads(int pid){
     char string[BUFFER_SIZE];
