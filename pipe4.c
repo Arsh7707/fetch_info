@@ -12,28 +12,24 @@ void setting_up_pipes(char commands[MAX_COMMANDS][MAX_COMMAND_LENGTH], int num_c
    pid_t pids[MAX_COMMANDS];
 
    for(int i = 0; i < num_commands - 1; i++){
-      if(pipe(fd[i] == -1)){
-        perror("pipe");
+      if(pipe(fd[i]) == -1){
         exit(1);
       }
    }
    for(int i = 0; i< num_commands; i++){
         pids[i] = fork();
         if(pids[i] == -1){
-            perror("fork");
             exit(1);
         }
    
         if(pids[i] == 0){
             if (i > 0) {
                 if (dup2(fd[i - 1][0], STDIN_FILENO) == -1) {
-                    perror("dup2");
                     exit(1);
                 }
         }
         if (i < num_commands - 1) {
                 if (dup2(fd[i][1], STDOUT_FILENO) == -1) {
-                    perror("dup2");
                     exit(1);
                 }
             }
@@ -53,8 +49,7 @@ void setting_up_pipes(char commands[MAX_COMMANDS][MAX_COMMAND_LENGTH], int num_c
             args[k] = NULL;
 
             // Execute the command
-            execvp(args[0], args);
-            perror("execvp"); // Only reached if execvp fails
+            execvp(args[0], args); 
             exit(1);
         }
     }
