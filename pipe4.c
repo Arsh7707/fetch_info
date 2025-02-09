@@ -9,9 +9,9 @@
 
 void setting_up_pipes(char commands[MAX_COMMANDS][MAX_COMMAND_LENGTH], int num_commands){
    int fd[num_commands - 1][2];
-   for (int i = 0; i< num_commands -1; i++){
-        pipe(fd[i]);
-    }
+//    for (int i = 0; i< num_commands -1; i++){
+//         pipe(fd[i]);
+//     }
     int var = 0;
     while(var < num_commands) {
         char *cmd[TOKENS];
