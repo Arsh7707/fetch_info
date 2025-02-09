@@ -9,60 +9,50 @@
 
 void setting_up_pipes(char commands[MAX_COMMANDS][MAX_COMMAND_LENGTH], int num_commands){
    int fd[num_commands - 1][2];
-   pid_t pids[MAX_COMMANDS];
-
-   for(int i = 0; i < num_commands - 1; i++){
-      if(pipe(fd[i]) == -1){
-        exit(1);
-      }
-   }
-   for(int i = 0; i< num_commands; i++){
-        pids[i] = fork();
-        if(pids[i] == -1){
-            exit(1);
-        }
-   
-        if(pids[i] == 0){
-            if (i > 0) {
-                if (dup2(fd[i - 1][0], STDIN_FILENO) == -1) {
-                    exit(1);
-                }
-        }
-        if (i < num_commands - 1) {
-                if (dup2(fd[i][1], STDOUT_FILENO) == -1) {
-                    exit(1);
-                }
-            }
-            for (int j = 0; j < num_commands - 1; j++) {
-                close(fd[j][0]);
-                close(fd[j][1]);
-            }
-
-            // Tokenize the command
-            char *args[TOKENS];
-            char *token = strtok(commands[i], " \n");
-            int k = 0;
-            while (token != NULL && k < TOKENS - 1) {
-                args[k++] = token;
-                token = strtok(NULL, " \n");
-            }
-            args[k] = NULL;
-
-            // Execute the command
-            execvp(args[0], args); 
-            exit(1);
-        }
+   for (int i = 0; i< num_commands -1; i++){
+        pipe(fd[i]);
     }
+    int var = 0;
+    while(var < num_commands) {
+        char *cmd[TOKENS];
+        int count = 0;
+        char *token = strtok(commands[var], " ");
+        
+        while(token!= NULL) {
+            cmd[count] = token;
+            token = strtok(NULL, " ");
+            count ++;
+            
+        
+        }
+        cmd[count] = NULL;  
 
-    // Close all pipe file descriptors in the parent
-    for (int i = 0; i < num_commands - 1; i++) {
-        close(fd[i][0]);
-        close(fd[i][1]);
+        int pid = fork();
+        if(pid ==0){
+            if(var != 0){
+                dup2(fd[var - 1][0], 0);
+            }
+            if(var < num_commands - 1){
+                dup2(fd[var][1], 1);
+            }
+
+            for(int i = 0; i < num_commands - 1; i++){
+                close(fd[i][0]);
+                close(fd[i][1]);
+            }
+            execve(cmd[0], cmd, NULL);
+            exit(1);
+
+
     }
-
-    // Wait for all child processes to finish
-    for (int i = 0; i < num_commands; i++) {
-        waitpid(pids[i], NULL, 0);
+    else{
+        if(var!=0) {
+                close(fd[var-1][0]);
+                close(fd[var-1][1]);
+            }
+        }
+        waitpid(-1, NULL, 0);
+        var++;
     }
 
 
