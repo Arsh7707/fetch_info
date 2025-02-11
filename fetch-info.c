@@ -143,7 +143,7 @@ void printing_file_name(int pid){
         exit(1);
     }
     char file_name[BUFFER_SIZE];
-    if(fgets(file_name, sizeof(file_name), file) != NULL && file_name[0] != '\0'){ // reading the file line by line and storing it in file_name
+    if(fgets(file_name, sizeof(file_name), file)){
         printf("Filename (if any):   %s\n", file_name);
     } else {
         printf("Filename (if any):   may be blank\n");
